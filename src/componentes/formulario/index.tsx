@@ -21,12 +21,32 @@ function Formulario() {
   };
 
   const upload = (event: React.MouseEvent<HTMLElement>) => {
-    console.log(event);
     let currentF = selectedFiles[0];
     setProgress(0);
     setCurrentFile(currentF);
     // mandar el upload al back fetch
     /// api aqui
+    fetch('http://localhost:5000/api/greeter/hello', {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify({})
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log('el resultado es');
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log('hubo un error');
+      });
   };
 
   return (
