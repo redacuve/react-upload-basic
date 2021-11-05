@@ -26,13 +26,13 @@ function Formulario() {
     setCurrentFile(currentF);
     // mandar el upload al back fetch
     /// api aqui
-    fetch('http://localhost:5000/api/greeter/hello', {
+    fetch('http://localhost:5000/api/greeter/image-upload', {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
       credentials: 'same-origin',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data; application/json'
       },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
