@@ -26,17 +26,20 @@ function Formulario() {
     setCurrentFile(currentF);
     // mandar el upload al back fetch
     /// api aqui
-    fetch('http://localhost:5000/api/greeter/image-upload', {
+    const data = new FormData();
+    data.append('file', currentF);
+    data.append('userr', 'medico');
+    fetch('http://localhost:5000/upload/', {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
       credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'multipart/form-data; application/json'
-      },
+      // headers: {
+      //   'Content-Type': 'multipart/form-data'
+      // },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
-      body: JSON.stringify({})
+      body: data,
     })
       .then((response) => response.json())
       .then((result) => {
