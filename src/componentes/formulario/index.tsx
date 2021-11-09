@@ -52,6 +52,29 @@ function Formulario() {
       });
   };
 
+  const obtainObject = () => {
+    fetch('http://localhost:5000/upload/', {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      // headers: {
+      //   'Content-Type': 'multipart/form-data'
+      // },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log('el resultado es');
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log('hubo un error');
+      });
+  };
+
   return (
     <div>
       <h1>Formulario</h1>
@@ -108,6 +131,12 @@ function Formulario() {
       <Typography variant="h6" className="list-header">
         List of Files
       </Typography>
+      <Button
+        variant="contained"
+        onClick={() => obtainObject()}
+      >
+        Obtain File
+      </Button>
       <ul className="list-group">
         {fileInfos &&
           fileInfos.map((file, index) => (
