@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 
 function Formulario() {
+  const [urlImg, setURLImg] = useState<string>('');
   const [selectedFiles, setSelectedFiles] = useState<any>(undefined);
   const [currentFile, setCurrentFile] = useState<any>(undefined);
   const [progress, setProgress] = useState<number>(0);
@@ -68,6 +69,31 @@ function Formulario() {
       .then((result) => {
         console.log('el resultado es');
         console.log(result);
+        setURLImg(result.url);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log('hubo un error');
+      });
+  };
+
+  const deleteObject = () => {
+    fetch('http://localhost:5000/upload/', {
+      method: 'DELETE',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      // headers: {
+      //   'Content-Type': 'multipart/form-data'
+      // },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log('el resultado es');
+        console.log(result);
+        setURLImg(result.url);
       })
       .catch((err) => {
         console.log(err);
@@ -137,6 +163,13 @@ function Formulario() {
       >
         Obtain File
       </Button>
+      <Button
+        variant="contained"
+        onClick={() => deleteObject()}
+      >
+        Delete File
+      </Button>
+      {urlImg.length > 0 && (<div className="w-full"><div className="w-1/2"><img src={urlImg} alt="imagen del amazon" width="100%" height="100%" /></div></div>)}
       <ul className="list-group">
         {fileInfos &&
           fileInfos.map((file, index) => (
