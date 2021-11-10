@@ -17,7 +17,7 @@ function Formulario() {
   const [fileInfos, setFileInfos] = useState<any[]>([]);
 
   const selectFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.files);
+    // console.log(event.target.files);
     setSelectedFiles(event.target.files);
   };
 
@@ -25,11 +25,17 @@ function Formulario() {
     let currentF = selectedFiles[0];
     setProgress(0);
     setCurrentFile(currentF);
+    console.log(currentF.name);
+    console.log(currentF.size);
     // mandar el upload al back fetch
     /// api aqui
     const data = new FormData();
+    data.append('idMedico', '10');
+    data.append('idPaciente', '1');
+    data.append('nombre',currentF.name);
+    data.append('peso', currentF.size);
+    data.append('registro', 'transfusiones');
     data.append('file', currentF);
-    data.append('userr', 'medico');
     fetch('http://localhost:5000/upload/', {
       method: 'POST',
       mode: 'cors',
